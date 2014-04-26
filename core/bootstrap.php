@@ -1,45 +1,26 @@
 <?php
-require __DIR__. '/define.php';
 
-
-
-$way = 	__DIR__. '/lib/Nette/loader.php';
-if (!is_file( $way ))
-	{
-	die('nette not found');
-	}	
-require $way;
-
-$way = 	__DIR__. '/lib/dibi/dibi.php';
-if (!is_file( $way ))
-	{
-	die('dibi not found');
-	}	
-require $way;
-
-
-echo localhost;
+require __DIR__. '/lib/Nette/loader.php';
+require	__DIR__. '/lib/dibi/dibi.php';
 
 $configurator = new Nette\Configurator;
 
-//$configurator->setDebugMode(true);  // debug mode MUST NOT be enabled on production server
-$configurator->enableDebugger(master_dir . '/log');
+$dirStorage = master_dir.'/_storage';
+$dirLog= $dirStorage.'/log';
+$dirTemp= $dirStorage.'/temp';
 
-//$configurator->setTempDirectory(__DIR__ . '/../temp');
+if (!file_exists($dirLog)) mkdir($dirLog, 0777, true);
+$configurator->enableDebugger($dirLog);
 
-/*
+if (!file_exists($dirTemp)) mkdir($dirTemp, 0777, true);
+$configurator->setTempDirectory($dirTemp);
+
+$configurator->addConfig(master_dir . '/config/config.neon');
+$configurator->addConfig(master_dir . '/config/config.local.neon');
+
 $configurator->createRobotLoader()
 	->addDirectory(__DIR__)
-	->addDirectory(__DIR__ . '/../vendor/others')
 	->register();
 
-$configurator->addConfig(__DIR__ . '/config/config.neon');
-$configurator->addConfig(__DIR__ . '/config/config.local.neon');
-
 $container = $configurator->createContainer();
-
-return $container;
-//  */
-
-
 
