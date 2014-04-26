@@ -5,7 +5,8 @@ require	__DIR__. '/lib/dibi/dibi.php';
 
 $configurator = new Nette\Configurator;
 
-$dirStorage = master_dir.'/_storage';
+$dirStorage = __DIR__ . '/../_storage';
+
 $dirLog= $dirStorage.'/log';
 $dirTemp= $dirStorage.'/temp';
 
@@ -15,7 +16,10 @@ $configurator->enableDebugger($dirLog);
 if (!file_exists($dirTemp)) mkdir($dirTemp, 0777, true);
 $configurator->setTempDirectory($dirTemp);
 
-$configurator->addConfig(master_dir . '/config/config.neon');
+$configurator->addConfig(__DIR__ . '/config/config.neon');
+
+//$configurator->addConfig( __DIR__ . '/../_site/config.neon');
+//$configurator->addConfig( __DIR__ . '/../_site/config.local.neon');
 
 $configurator->createRobotLoader()
 	->addDirectory(__DIR__)

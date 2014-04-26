@@ -1,9 +1,7 @@
 <?php
 
-namespace App;
 
-use Nette,
-	Nette\Application\Routers\RouteList,
+use Nette\Application\Routers\RouteList,
 	Nette\Application\Routers\Route;
 
 
@@ -20,8 +18,26 @@ class RouterFactory
 	public function createRouter()
 	{
 		$router = new RouteList();
-		$router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
 
+
+		$router[] = new Route('admin', array(
+				'module' => 'Admin',
+				'presenter' => 'Default',
+				'action' => 'default',
+				'path' => NULL
+			)
+		);
+		
+		
+		$router[] = new Route('<path .+>', array(
+				'module' => 'Front',
+				'presenter' => 'Default',
+				'action' => 'default',
+				'path' => NULL
+			)
+		);
+		
+		
 		return $router;
 	}
 

@@ -5,7 +5,6 @@
  * @param string   $robots   tell robots how to index the content of a page (optional)
  * @param array    $flashes  flash messages
  *}
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,10 +20,9 @@
 	{block head}{/block}
 </head>
 
-<body style="background-color: linen">
-	<script> document.documentElement.className+=' js' </script>
+<body style="background-color:  graytext">
 	
-	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+
 
 	{include content}
 

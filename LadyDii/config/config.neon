@@ -5,23 +5,27 @@
 # http://nette.org/security-warning
 #
 parameters:
-
+	database:
+		driver: mysql
+		host: localhost
+		database: ladydii_nette
+		user: root
+		password: db4u
 
 php:
 	date.timezone: Europe/Prague
-	# zlib.output_compression: yes
-
 
 nette:
 	application:
 		errorPresenter: Error
 		mapping:
-			*: App\*Module\Presenters\*Presenter
+			*: *Module\Presenters\*Presenter
 
 	session:
 		expiration: 14 days
 
-
 services:
-	- App\RouterFactory
-	router: @App\RouterFactory::createRouter
+	dbSystem:
+		class: DibiConnection(%database%)
+	- RouterFactory
+	router: @\RouterFactory::createRouter
