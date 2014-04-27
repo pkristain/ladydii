@@ -7,7 +7,6 @@ use Nette,
 	Nette\Application\Routers\Route;
 
 
-
 /**
  * Class RouterFactory
  * @package App
@@ -15,14 +14,14 @@ use Nette,
 class RouterFactory
 {
 
-
 	/**
-	 * @return array|RouteList
+	 * @return \Nette\Application\IRouter
 	 */
 	public function createRouter()
 	{
 		$router = new RouteList();
 		$router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
+
 		return $router;
 	}
 

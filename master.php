@@ -5,7 +5,9 @@
  
 $container = require __DIR__ . '/core/bootstrap.php';
 
-//$container->getService('application')->run();
+
+
+$container->getService('application')->run();
 
 
 
