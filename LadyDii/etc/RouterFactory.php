@@ -6,8 +6,7 @@ use Nette\Application\Routers\RouteList,
 
 
 /**
- * Class RouterFactory
- * @package App
+ * Router factory.
  */
 class RouterFactory
 {
@@ -17,6 +16,9 @@ class RouterFactory
 	 */
 	public function createRouter()
 	{
+		
+		
+		
 		$router = new RouteList();
 
 
@@ -28,14 +30,25 @@ class RouterFactory
 			)
 		);
 		
-		
-		$router[] = new Route('<path .+>', array(
+		$router[] = new Route('[<id=0>]', array(
 				'module' => 'Front',
 				'presenter' => 'Default',
 				'action' => 'default',
-				'path' => NULL
+				
+				'id' => array(
+					Route::FILTER_IN => function ($id)  {
+						 $kuk = $this->db->table(\Dii::table('page_all'))
+							->where('page_id', $id)
+							->limit(1);
+						 if ($kuk->count() == 0) return NULL;
+						 $arr = $kuk->fetch()->toArray();
+							\Dii::dump($arr);
+						 return $arr['page_id'];
+						}
+					)
 			)
-		);
+		);	
+
 		
 		
 		return $router;

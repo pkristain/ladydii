@@ -11,6 +11,7 @@ parameters:
 		database: ladydii_nette
 		user: root
 		password: db4u
+		prefix: ladydii_
 
 php:
 	date.timezone: Europe/Prague

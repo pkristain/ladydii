@@ -1,0 +1,5 @@
+#deny from all
+
+RewriteEngine On
+
+RewriteRule (.*) www/$1 [DPI]
