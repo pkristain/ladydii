@@ -9,6 +9,6 @@ class DefaultPresenter extends BasePresenter
 
 	public function renderDefault()
 	{
-		/* DEBUG */ \Tracy\Dumper::dump($this->getDb()); /* DEBUG */
+/* DEBUG */ \Tracy\Dumper::dump($this); /* DEBUG */
 	}
 }

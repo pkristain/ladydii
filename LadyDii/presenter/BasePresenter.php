@@ -12,6 +12,7 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	 */
 	private $db;
 
+
 	/**
 	 * @return \DibiConnection
 	 */
@@ -20,6 +21,10 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 		return $this->db;
 	}
 
+
+	/**
+	 * @param \DibiConnection $connection
+	 */
 	function __construct(\DibiConnection $connection)
 	{
 		$this->db = $connection;

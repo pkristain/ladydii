@@ -1,7 +1,7 @@
 <?php
 
-require __DIR__. '/lib/Nette/loader.php';
-require	__DIR__. '/lib/dibi/dibi.php';
+require __DIR__ . '/libs/Nette/loader.php';
+require __DIR__ . '/libs/dibi/dibi.php';
 
 $configurator = new Nette\Configurator;
 
