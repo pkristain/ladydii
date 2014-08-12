@@ -1,7 +1,6 @@
 <?php
 
-require __DIR__ . '/libs/Nette/loader.php';
-require __DIR__ . '/libs/dibi/dibi.php';
+require __DIR__ . '/../libs/Nette/loader.php';
 
 $configurator = new Nette\Configurator;
 
@@ -23,6 +22,7 @@ $configurator->addConfig(__DIR__ . '/config/config.neon');
 
 $configurator->createRobotLoader()
 	->addDirectory(__DIR__)
+	->addDirectory(__DIR__.'/../libs')
 	->register();
 
 
