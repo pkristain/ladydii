@@ -1,30 +1,33 @@
 <?php
 
-require __DIR__ . '/../libs/Nette/loader.php';
+require __DIR__ . '/../libs/autoload.php';
+
+define('DIR_ROOT', __DIR__ . '/../');
+
+define('DIR_CORE', __DIR__ );
+
+define('DIR_STORAGE',DIR_ROOT . '_storage');
+define('DIR_LOG', DIR_STORAGE . '/log');
+define('DIR_TEMP', DIR_STORAGE . '/log');
 
 $configurator = new Nette\Configurator;
 
-$dirStorage = __DIR__ . '/../_storage';
+if (!file_exists(DIR_LOG)) mkdir(DIR_LOG, 0777, true);
+$configurator->enableDebugger(DIR_LOG);
 
-$dirLog= $dirStorage.'/log';
-$dirTemp= $dirStorage.'/temp';
+if (!file_exists(DIR_TEMP)) mkdir(DIR_TEMP, 0777, true);
+$configurator->setTempDirectory(DIR_TEMP);
 
-if (!file_exists($dirLog)) mkdir($dirLog, 0777, true);
-$configurator->enableDebugger($dirLog);
-
-if (!file_exists($dirTemp)) mkdir($dirTemp, 0777, true);
-$configurator->setTempDirectory($dirTemp);
-
-$configurator->addConfig(__DIR__ . '/config/config.neon');
+$configurator->addConfig(DIR_CORE . '/config/config.neon');
 
 //$configurator->addConfig( __DIR__ . '/../_site/config.neon');
 //$configurator->addConfig( __DIR__ . '/../_site/config.local.neon');
 
 $configurator->createRobotLoader()
-	->addDirectory(__DIR__)
-	->addDirectory(__DIR__.'/../libs')
+	->addDirectory(DIR_CORE)
 	->register();
 
 
 
 return $configurator->createContainer();
+

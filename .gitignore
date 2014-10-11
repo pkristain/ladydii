@@ -1,2 +1,3 @@
-_storage
-.idea
+_storage/
+.idea/
+libs/
