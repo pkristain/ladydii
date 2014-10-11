@@ -12,6 +12,8 @@ parameters:
 		user: root
 		password: db4u
 		prefix: ladydii_
+		profiler:
+			run: true
 
 php:
 	date.timezone: Europe/Prague
@@ -24,9 +26,15 @@ nette:
 
 	session:
 		expiration: 14 days
+	debugger:
+		bar:
+			- JanDrabek\MailPanel\MailPanel
+			- Dibi\Bridges\Tracy\Panel
 
 services:
 	dbSystem:
 		class: DibiConnection(%database%)
 	- RouterFactory
 	router: @\RouterFactory::createRouter
+	nette.mailer: JanDrabek\MailPanel\SessionMailer
+

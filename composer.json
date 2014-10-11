@@ -16,6 +16,7 @@
 		"php" : ">=5.5",
 		"nette/nette": "~2.2.0",
 		"nette/tester": "~1.3.0",
-		"dibi/dibi": "~2.2"
+		"dibi/dibi": "~2.2",
+		"jandrabek/nette-mailpanel": "~3.2"
 	}
 }

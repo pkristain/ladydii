@@ -35,17 +35,17 @@ class RouterFactory
 				'presenter' => 'Default',
 				'action' => 'default',
 				
-				'id' => array(
-					Route::FILTER_IN => function ($id)  {
-						 $kuk = $this->db->table(\Dii::table('page_all'))
-							->where('page_id', $id)
-							->limit(1);
-						 if ($kuk->count() == 0) return NULL;
-						 $arr = $kuk->fetch()->toArray();
-							\Dii::dump($arr);
-						 return $arr['page_id'];
-						}
-					)
+//				'id' => array(
+//					Route::FILTER_IN => function ($id)  {
+//						 $kuk = $this->db->table(\Dii::table('page_all'))
+//							->where('page_id', $id)
+//							->limit(1);
+//						 if ($kuk->count() == 0) return NULL;
+//						 $arr = $kuk->fetch()->toArray();
+//							\Dii::dump($arr);
+//						 return $arr['page_id'];
+//						}
+//					)
 			)
 		);	
 
