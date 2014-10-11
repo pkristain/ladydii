@@ -1,3 +1,0 @@
-[submodule "libs/dibi"]
-	path = libs/dibi
-	url = git@github.com:dg/dibi.git
