@@ -10,7 +10,7 @@ parameters:
 		host: localhost
 		database: ladydii_nette
 		user: root
-		password: db4u
+		password:
 		prefix: ladydii_
 		profiler:
 			run: true
