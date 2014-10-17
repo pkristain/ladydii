@@ -6,7 +6,7 @@ define('DIR_CORE', __DIR__ );
 
 define('DIR_STORAGE', DIR_ROOT . '_storage');
 define('DIR_LOG', DIR_STORAGE . '/log');
-define('DIR_TEMP', DIR_STORAGE . '/log');
+define('DIR_TEMP', DIR_STORAGE . '/temp');
 
 if (!file_exists(DIR_ROOT.'/libs'))
 {

@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `page_sheet`
 CREATE TABLE IF NOT EXISTS `page_sheet` (
 	`page_sheet_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`page_detail_id` INT(11) UNSIGNED NOT NULL,
-# 	`page_sheet_active` INT(1) UNSIGNED NOT NULL DEFAULT '0',
+ 	`page_sheet_active` BIT(1) NOT NULL DEFAULT b'0',
 	`page_sheet_name` VARCHAR(255) DEFAULT NULL,
 	`page_sheet_changed` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	`page_sheet_content` TEXT,

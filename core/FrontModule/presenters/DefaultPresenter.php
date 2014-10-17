@@ -5,10 +5,12 @@ namespace FrontModule\Presenters;
 
 class DefaultPresenter extends BasePresenter
 {
-	
+
 
 	public function renderDefault()
 	{
-/* DEBUG */ \Tracy\Dumper::dump($this); /* DEBUG */
+		$tables = $this->model->schema->getTables();
+		/* DEBUG */ \Tracy\Dumper::dump($tables); /* DEBUG */
+
 	}
 }

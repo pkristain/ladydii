@@ -335,13 +335,6 @@ CREATE TABLE IF NOT EXISTS `ladydii_var_unit` (
 -- --------------------------------------------------------
 
 --
--- Structure for view `ladydii_page_all`
---
-DROP TABLE IF EXISTS `ladydii_page_all`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ladydii_page_all` AS select `p`.`page_id` AS `page_id`,`k`.`kind_id` AS `kind_id`,`u`.`unit_id` AS `unit_id`,'-' AS `-`,`p`.`page_parent` AS `page_parent`,`p`.`page_visibility` AS `page_visibility`,`p`.`page_created` AS `page_created`,`p`.`page_level` AS `page_level`,`p`.`page_order` AS `page_order`,`p`.`page_general_visibility` AS `page_general_visibility`,'-' AS `My_exp_-`,`l`.`lang_code` AS `lang_code`,`l`.`lang_name` AS `lang_name`,`l`.`lang_visibility` AS `lang_visibility`,'-' AS `My_exp_1_-`,`k`.`kind_name` AS `kind_name`,`k`.`kind_alias` AS `kind_alias`,`k`.`kind_route` AS `kind_route`,'-' AS `My_exp_2_-`,`u`.`unit_active` AS `unit_active`,`u`.`unit_name` AS `unit_name`,`u`.`unit_changed` AS `unit_changed`,`u`.`unit_content` AS `unit_content` from (((`ladydii_page_page` `p` join `ladydii_page_kind` `k`) join `ladydii_page_unit` `u`) join `ladydii_lang` `l`) where ((`p`.`page_id` = `k`.`page_id`) and (`u`.`kind_id` = `k`.`kind_id`) and (`k`.`kind_lang` = `l`.`lang_id`)) order by `p`.`page_id`;
-
---
 -- Constraints for dumped tables
 --
 

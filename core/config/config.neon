@@ -11,9 +11,8 @@ parameters:
 		database: ladydii_nette
 		user: root
 		password:
-		prefix: ladydii_
-		profiler:
-			run: true
+		prefix:
+		profiler: on
 
 php:
 	date.timezone: Europe/Prague
@@ -29,7 +28,7 @@ nette:
 	debugger:
 		bar:
 			- JanDrabek\MailPanel\MailPanel
-			- Dibi\Bridges\Tracy\Panel
+#			- Dibi\Bridges\Tracy\Panel
 
 services:
 	dbSystem:

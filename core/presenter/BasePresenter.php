@@ -10,15 +10,21 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	/**
 	 * @var \DibiConnection Databse Connection
 	 */
-	private $db;
+	private $connection;
+
+
+	/**
+	 * @var \ModelFactory Model Factory
+	 */
+	public $model;
 
 
 	/**
 	 * @return \DibiConnection
 	 */
-	public function getDb()
+	public function getConnection()
 	{
-		return $this->db;
+		return $this->connection;
 	}
 
 
@@ -27,7 +33,13 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	 */
 	function __construct(\DibiConnection $connection)
 	{
-		$this->db = $connection;
+		parent::__construct();
+		$this->connection = $connection;
+
+//		$this->context->;
+		$this->model = new \ModelFactory($this->connection);
+
+
 	}
 
 
