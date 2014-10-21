@@ -1,0 +1,35 @@
+html, body {
+
+}
+
+html {
+	background: #f6f5f3;
+}
+body {
+
+	font-family: "Trebutchet MS";
+	font-size: 16px;
+}
+div#outerWrapper {
+	width: 900px;
+	background-color: #fff;
+	margin: auto;
+	border: 1px dashed #fa6148;
+	border-top-width: 0;
+	min-height: 400px;
+	padding: 20px 0;
+	position:relative;
+}
+div#innerWrapper {
+	width: 880px;
+	margin: auto;
+}
+
+div#footer {
+	position: absolute;
+	left: 5px;
+	right: 5px;
+	bottom: -20px;
+
+	font-size:  14px;
+}

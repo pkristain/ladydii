@@ -7,6 +7,7 @@ namespace Presenters;
  */
 abstract class BasePresenter extends \Nette\Application\UI\Presenter
 {
+
 	/**
 	 * @var \DibiConnection Databse Connection
 	 */
@@ -31,15 +32,28 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	/**
 	 * @param \DibiConnection $connection
 	 */
-	function __construct(\DibiConnection $connection)
+	public function __construct(\DibiConnection $connection)
 	{
 		parent::__construct();
 		$this->connection = $connection;
 
-//		$this->context->;
-		$this->model = new \ModelFactory($this->connection);
+
+	}
 
 
+	public function startup()
+	{
+		parent::startup();
+
+		$this->setModels();
+	}
+
+
+	private function setModels()
+	{
+		$this->model = new \ModelFactory();
+		$this->model->initDbModels($this->connection);
+		$this->model->initSessionModels($this->session);
 	}
 
 

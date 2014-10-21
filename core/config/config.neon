@@ -22,9 +22,10 @@ nette:
 		errorPresenter: Error
 		mapping:
 			*: *Module\Presenters\*Presenter
-
 	session:
+		autoStart: true
 		expiration: 14 days
+		name: ladydii
 	debugger:
 		bar:
 			- JanDrabek\MailPanel\MailPanel

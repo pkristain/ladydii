@@ -9,15 +9,17 @@ class DefaultPresenter extends BasePresenter
 
 	public function renderDefault()
 	{
-	/* DEBUG */ \Tracy\Dumper::dump($this->model->page->showPages(4)); /* DEBUG */
+		$this->model->page->orderPages();
+		$pages = $this->model->page->findAll()->fetchAll();
+		foreach ($pages as $page)
+		{
+			foreach ($page as $col)
+			{
+				echo $col . ' - ';
+			}
+		echo '<br>';
+		}
 
-
-
-
-
-
-
-
-	/* DEBUG */ die('ahoj tady admin'); /* DEBUG */
+		//		/* DEBUG */ \Tracy\Dumper::dump($this->model->page->findAll()->fetchAll()); /* DEBUG */
 	}
 }
