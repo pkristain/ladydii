@@ -1,13 +1,13 @@
 INSERT INTO `page` (
-	`page_id`, `page_parent`, `page_name`, `page_alias`)
+	`page_id`, `page_parent`, `page_name`, `page_alias`, `page_visibility`)
 VALUES
-	(1, NULL, 'první super strana', null ),
-	(2, 1, 'druha ještě suprovější strana','second'),
-	(3, 1, 'třetí strana už ne tak kůl','third'),
-	(4, 3, 'čtvrtá už jen tak do počtu','forth'),
-	(5, 3, 'pátá jen tak', 'fifth'),
-	(6, 2, 'parchant','tak-torchu'),
-	(7, 4, 'aby to byla legrace','trochu-vice')
+	(1, NULL, 'první super strana', null, 1),
+	(2, 1, 'druha ještě suprovější strana','second', 1),
+	(3, 1, 'třetí strana už ne tak kůl','third', 1),
+	(4, 3, 'čtvrtá už jen tak do počtu','forth', 0),
+	(5, 3, 'pátá jen tak', 'fifth', 1),
+	(6, 2, 'parchant','tak-torchu', 1),
+	(7, 4, 'aby to byla legrace','trochu-vice', 1)
 ;
 
 INSERT INTO `sheet` (

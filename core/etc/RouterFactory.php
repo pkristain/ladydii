@@ -22,7 +22,7 @@ class RouterFactory
 		$router = new RouteList();
 
 
-		$router[] = new Route('admin', array(
+		$router[] = new Route('admin/<presenter>/<action>', array(
 				'module' => 'Admin',
 				'presenter' => 'Default',
 				'action' => 'default',

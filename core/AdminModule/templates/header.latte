@@ -1,0 +1,25 @@
+<table class="primaryMenu">
+	<tr>
+		 {foreach $primaryMenu as $key => $value}
+		<td>
+			<a n:href="{$value}"
+			class="{ifCurrent $value}ok{else}info{/ifCurrent}"
+			>{$value}</a>
+			</td>
+		{/foreach}
+	</tr>
+</table>
+
+<table class="secondaryMenu">
+	<tr>
+		 {foreach $secondaryMenu as $key => $value}
+		<td>
+			<a n:href="{$value}"
+			class="{ifCurrent $value}ok{else}info{/ifCurrent}"
+			>{$value}</a>
+			</td>
+		{/foreach}
+	</tr>
+</table>
+
+

@@ -7,7 +7,7 @@
  *}
 
 <!DOCTYPE html>
-<html>
+<html id="html">
 <head>
 	<meta charset="utf-8">
 	<meta name="robots" content="NOINDEX, NOFOLLOW">
@@ -21,13 +21,22 @@
 	{block head}{/block}
 </head>
 
-<body>
-	<div id='outerWrapper'>
-		<div id='innerWrapper'>
-			{include content}
+<body id="body">
+	<div class='outerWrapper'>
+		<div class='innerWrapper'>
+			<div id="header">
+				{include 'header.latte'}
+			</div>
 		</div>
-		<div id="footer">
-		bla bla footer
+	</div>
+	<div class='outerWrapper'>
+		<div class='innerWrapper'>
+			<div id="content">
+				{include content}
+			</div>
+		</div>
+		<div id="footer" n:block="footer">
+		{include 'footer.latte'}
 		</div>
 	</div>
 

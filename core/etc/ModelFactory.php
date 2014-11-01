@@ -14,7 +14,7 @@ class ModelFactory {
 	public $schema;
 
 	/**
-	 * @var Model\PageTableModel
+	 * @var Model\PageModel
 	 */
 	public $page;
 
@@ -35,7 +35,7 @@ class ModelFactory {
 	 */
 	public function initDbModels(\DibiConnection $connection)
 	{
-		$this->page = new \Model\PageTableModel($connection);
+		$this->page = new \Model\PageModel($connection);
 	}
 
 

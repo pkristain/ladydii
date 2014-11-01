@@ -8,7 +8,7 @@ namespace Model;
  * Class PageTableModel
  * @package Model
  */
-class PageTableModel extends BaseTableModel
+class PageModel extends BaseTableModel
 {
 
 
@@ -42,6 +42,7 @@ class PageTableModel extends BaseTableModel
 		$this->db->update('page',[
 			'page_order' => null,
 			'page_level' => null,
+			'page_general_visibility' => null,
 		]);
 		$this->orderDescendants();
 	}
@@ -53,7 +54,7 @@ class PageTableModel extends BaseTableModel
 	 * @param int $level
 	 *
 	 */
-	private function orderDescendants($page_id = null, &$order = 0, $level = 0)
+	private function orderDescendants($page_id = null, &$order = 0, $general_visibility = true, $level = 0)
 	{
 		if (is_null($page_id))
 		{
@@ -62,25 +63,33 @@ class PageTableModel extends BaseTableModel
 		else
 		{
 			$order++;
-			$level++;
+
 			$this->db->update('page',[
 				'page_order' => $order,
 				'page_level' => $level,
+				'page_general_visibility' => $general_visibility,
+
 			])
 				->where(['page_id' => $page_id])
 				->execute()
 			;
-
-			$descendants = $this->findDescendants($page_id);
-
+			$level++;
+			$descendants = $this->findDirectDescendants($page_id);
 		}
 
-		$descendants = $descendants->fetchPairs(null, 'page_id');
-
+		$descendants = $descendants->fetchAll();
 
 		foreach ($descendants as $item)
 		{
-			$this->orderDescendants($item, $order, $level);
+			if(!$general_visibility or !$item->page_visibility)
+			{
+				$setVisibility = false;
+			}
+			else
+			{
+				$setVisibility = true;
+			}
+			$this->orderDescendants($item->page_id, $order, $setVisibility, $level);
 		}
 	}
 
