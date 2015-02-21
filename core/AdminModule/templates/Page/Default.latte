@@ -1,0 +1,18 @@
+{block content}
+
+<table class="pageTree">
+	{foreach $pageTree as $page}
+		<tr class="{$page->page_general_visibility ? 'visible': 'hidden'}">
+			<td class="page_id">{$page->page_id}</td>
+			<td class="page_name">
+				<a href="#">
+					<span class="page_level">{str_repeat('&#9711;', $page->page_level)|noescape}{$page->page_level ? '&nbsp;'|noescape}</span>
+					<span class="page_name">{$page->page_name}</span>
+				</a>
+			</td>
+			<td class="page_visibility">{$page->page_visibility ? '&#10003;':'&#10007;'|noescape}</td>
+			<td class="page_priority">{$page->page_priority}</td>
+			<td class="page_created">{$page->page_created}</td>
+		</tr>
+	{/foreach}
+</table>
