@@ -16,27 +16,27 @@
 		}
 	],
 	"require": {
-		"nette/application": "2.3.0-RC",
-		"nette/bootstrap": "2.3.0-RC4",
-		"nette/caching": "2.3.0-RC3",
-		"nette/component-model": "2.2.1-RC",
-		"nette/database": "2.3.0-RC3",
+		"nette/application": "2.3.1",
+		"nette/bootstrap": "2.3.0",
+		"nette/caching": "2.3.0",
+		"nette/component-model": "2.2.1",
+		"nette/database": "2.3.0",
 		"nette/deprecated": "2.2.1",
-		"nette/di": "2.3.0-RC3",
-		"nette/finder": "2.3.0-RC",
-		"nette/forms": "2.3.0-RC2",
-		"nette/http": "2.3.0-RC3",
-		"nette/mail": "2.3.0-RC2",
-		"nette/neon": "2.3.0-RC",
-		"nette/php-generator": "2.3.0-RC3",
-		"nette/reflection": "2.3.0-RC",
-		"nette/robot-loader": "2.3.0-RC2",
+		"nette/di": "2.3.0",
+		"nette/finder": "2.3.0",
+		"nette/forms": "2.3.0",
+		"nette/http": "2.3.0",
+		"nette/mail": "2.3.0",
+		"nette/neon": "2.3.0",
+		"nette/php-generator": "2.3.0",
+		"nette/reflection": "2.3.0",
+		"nette/robot-loader": "2.3.0",
 		"nette/safe-stream": "2.3.0",
-		"nette/security": "2.3.0-RC2",
+		"nette/security": "2.3.0",
 		"nette/tokenizer": "2.2.0",
-		"nette/utils": "2.3.0-RC2",
-		"latte/latte": "2.3.0-RC3",
-		"tracy/tracy": "2.3.0-RC3"
+		"nette/utils": "2.3.0",
+		"latte/latte": "2.3.0",
+		"tracy/tracy": "2.3.0"
 	},
 	"require-dev": {
 		"nette/tester": "~1.3"
@@ -44,7 +44,6 @@
 	"autoload": {
 		"classmap": ["Nette/"]
 	},
-	"minimum-stability": "dev",
 	"extra": {
 		"branch-alias": {
 			"dev-master": "2.3-dev"

@@ -125,6 +125,7 @@ return array(
     'Nette\\ArgumentOutOfRangeException' => $vendorDir . '/nette/utils/src/Utils/exceptions.php',
     'Nette\\Bridges\\ApplicationDI\\ApplicationExtension' => $vendorDir . '/nette/application/src/Bridges/ApplicationDI/ApplicationExtension.php',
     'Nette\\Bridges\\ApplicationDI\\LatteExtension' => $vendorDir . '/nette/application/src/Bridges/ApplicationDI/LatteExtension.php',
+    'Nette\\Bridges\\ApplicationDI\\PresenterFactoryCallback' => $vendorDir . '/nette/application/src/Bridges/ApplicationDI/PresenterFactoryCallback.php',
     'Nette\\Bridges\\ApplicationDI\\RoutingExtension' => $vendorDir . '/nette/application/src/Bridges/ApplicationDI/RoutingExtension.php',
     'Nette\\Bridges\\ApplicationLatte\\ILatteFactory' => $vendorDir . '/nette/application/src/Bridges/ApplicationLatte/ILatteFactory.php',
     'Nette\\Bridges\\ApplicationLatte\\Loader' => $vendorDir . '/nette/application/src/Bridges/ApplicationLatte/Loader.php',

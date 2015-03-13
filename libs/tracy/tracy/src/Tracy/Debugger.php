@@ -18,7 +18,7 @@ use Tracy,
  */
 class Debugger
 {
-	const VERSION = '2.3-dev';
+	const VERSION = '2.3.0';
 
 	/** server modes {@link Debugger::enable()} */
 	const DEVELOPMENT = FALSE,
@@ -124,7 +124,7 @@ class Debugger
 	/**
 	 * Enables displaying or logging errors and exceptions.
 	 * @param  mixed   production, development mode, autodetection or IP address(es) whitelist.
-	 * @param  string  error log directory; enables logging in production mode, FALSE means that logging is disabled
+	 * @param  string  error log directory
 	 * @param  string  administrator email; enables email sending in production mode
 	 * @return void
 	 */
@@ -238,7 +238,7 @@ class Debugger
 
 			if (self::isHtmlMode()) {
 				$logged = empty($e);
-				require self::$errorTemplate ?: __DIR__ . '/templates/error.phtml';
+				require self::$errorTemplate ?: __DIR__ . '/assets/Debugger/error.500.phtml';
 			} elseif (PHP_SAPI === 'cli') {
 				fwrite(STDERR, 'ERROR: application encountered an error and can not continue. '
 					. (isset($e) ? "Unable to log error.\n" : "Error was logged.\n"));

@@ -6,8 +6,7 @@ define('DIR_WWW', __DIR__ );
 $container = require __DIR__ . '/../core/bootstrap.php';
 
 // Run application.
-$container->application->run();
-
+$container->getByType('Nette\Application\Application')->run();
 
 
 

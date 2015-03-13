@@ -103,7 +103,7 @@ class ClassType extends Nette\Object
 
 	public function __construct($name = NULL, PhpNamespace $namespace = NULL)
 	{
-		$this->name = $name;
+		$this->setName($name);
 		$this->namespace = $namespace;
 	}
 
@@ -515,7 +515,7 @@ class ClassType extends Nette\Object
 	{
 		$method = new Method;
 		if ($this->type === 'interface') {
-			$method->setVisibility('')->setBody(FALSE);
+			$method->setVisibility(NULL)->setBody(FALSE);
 		} else {
 			$method->setVisibility('public');
 		}

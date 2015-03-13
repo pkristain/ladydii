@@ -39,8 +39,8 @@ class dibi
 		FIELD_TIME = dibi::TIME;
 
 	/** version */
-	const VERSION = '2.3.0',
-		REVISION = 'released on 2015-01-23';
+	const VERSION = '2.3.1',
+		REVISION = 'released on 2015-02-25';
 
 	/** sorting order */
 	const ASC = 'ASC',
@@ -86,14 +86,12 @@ class dibi
 	/**
 	 * Creates a new DibiConnection object and connects it to specified database.
 	 * @param  mixed   connection parameters
+	 * @param  string  connection name
 	 * @return DibiConnection
 	 * @throws DibiException
 	 */
 	public static function connect($config = array(), $name = 0)
 	{
-		if ($name) {
-			trigger_error(__METHOD__ . '(): named connections are deprecated.', E_USER_DEPRECATED);
-		}
 		return self::$connection = self::$registry[$name] = new DibiConnection($config, $name);
 	}
 
@@ -120,6 +118,7 @@ class dibi
 
 	/**
 	 * Retrieve active connection.
+	 * @param  string   connection registy name
 	 * @return DibiConnection
 	 * @throws DibiException
 	 */
@@ -132,8 +131,6 @@ class dibi
 
 			return self::$connection;
 		}
-
-		trigger_error(__METHOD__ . '(): named connections are deprecated.', E_USER_DEPRECATED);
 
 		if (!isset(self::$registry[$name])) {
 			throw new DibiException("There is no connection named '$name'.");
@@ -472,7 +469,7 @@ class dibi
 				$sql = self::$sql;
 			}
 
-			static $keywords1 = 'SELECT|(?:ON\s+DUPLICATE\s+KEY)?UPDATE|INSERT(?:\s+INTO)?|REPLACE(?:\s+INTO)?|DELETE|CALL|UNION|FROM|WHERE|HAVING|GROUP\s+BY|ORDER\s+BY|LIMIT|OFFSET|SET|VALUES|LEFT\s+JOIN|INNER\s+JOIN|TRUNCATE|START\s+TRANSACTION|BEGIN|COMMIT|ROLLBACK(?:\s+TO\s+SAVEPOINT)?|(?:RELEASE\s+)?SAVEPOINT';
+			static $keywords1 = 'SELECT|(?:ON\s+DUPLICATE\s+KEY)?UPDATE|INSERT(?:\s+INTO)?|REPLACE(?:\s+INTO)?|DELETE|CALL|UNION|FROM|WHERE|HAVING|GROUP\s+BY|ORDER\s+BY|LIMIT|OFFSET|FETCH\s+NEXT|SET|VALUES|LEFT\s+JOIN|INNER\s+JOIN|TRUNCATE|START\s+TRANSACTION|BEGIN|COMMIT|ROLLBACK(?:\s+TO\s+SAVEPOINT)?|(?:RELEASE\s+)?SAVEPOINT';
 			static $keywords2 = 'ALL|DISTINCT|DISTINCTROW|IGNORE|AS|USING|ON|AND|OR|IN|IS|NOT|NULL|LIKE|RLIKE|REGEXP|TRUE|FALSE';
 
 			// insert new lines

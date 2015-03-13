@@ -44,7 +44,7 @@ Nette.getValue = function(elem) {
 		}
 		return multi ? res : null;
 
-	} else if (!elem.form.elements[elem.name].tagName) { // multi element
+	} else if (elem.name && !elem.form.elements[elem.name].tagName) { // multi element
 		return Nette.getValue(elem.form.elements[elem.name]);
 
 	} else if (elem.type === 'file') {
@@ -110,6 +110,10 @@ Nette.validateControl = function(elem, rules, onlyCheck, value) {
 		var rule = rules[id],
 			op = rule.op.match(/(~)?([^?]+)/),
 			curElem = rule.control ? elem.form.elements[rule.control] : elem;
+
+		if (!curElem) {
+			continue;
+		}
 
 		rule.neg = op[1];
 		rule.op = op[2];
@@ -416,25 +420,36 @@ Nette.toggleControl = function(elem, rules, success, firsttime, value) {
 		handled = [],
 		handler = function () {
 			Nette.toggleForm(elem.form, elem);
-		};
+		},
+		curSuccess;
 
 	for (var id = 0, len = rules.length; id < len; id++) {
 		var rule = rules[id],
 			op = rule.op.match(/(~)?([^?]+)/),
 			curElem = rule.control ? elem.form.elements[rule.control] : elem;
 
+		if (!curElem) {
+			continue;
+		}
+
+		curSuccess = success;
 		if (success !== false) {
 			rule.neg = op[1];
 			rule.op = op[2];
-			var curValue = elem === curElem ? value : {value: Nette.getEffectiveValue(curElem)},
-				res = Nette.validateRule(curElem, rule.op, rule.arg, curValue);
-			if (res === null) {
+			var curValue = elem === curElem ? value : {value: Nette.getEffectiveValue(curElem)};
+			curSuccess = Nette.validateRule(curElem, rule.op, rule.arg, curValue);
+			if (curSuccess === null) {
 				continue;
+
+			} else if (rule.neg) {
+				curSuccess = !curSuccess;
 			}
-			success = rule.neg ? !res : res;
+			if (!rule.rules) {
+				success = curSuccess;
+			}
 		}
 
-		if ((rule.rules && Nette.toggleControl(elem, rule.rules, success, firsttime, value)) || rule.toggle) {
+		if ((rule.rules && Nette.toggleControl(elem, rule.rules, curSuccess, firsttime, value)) || rule.toggle) {
 			has = true;
 			if (firsttime) {
 				var oldIE = !document.addEventListener, // IE < 9
@@ -449,7 +464,7 @@ Nette.toggleControl = function(elem, rules, success, firsttime, value) {
 			}
 			for (var id2 in rule.toggle || []) {
 				if (Object.prototype.hasOwnProperty.call(rule.toggle, id2)) {
-					Nette.toggles[id2] = Nette.toggles[id2] || (rule.toggle[id2] ? success : !success);
+					Nette.toggles[id2] = Nette.toggles[id2] || (rule.toggle[id2] ? curSuccess : !curSuccess);
 				}
 			}
 		}

@@ -131,9 +131,16 @@ html#html body#body .error, html#html body#body a[href^="#error:"] {
 }
 
 
+
+
+
+
+
+/*pagetree*/
 table.pageTree {
 	width: 100%;
 	border-collapse: separate;
+	border-spacing: 0 1px;
 }
 
 table.pageTree tr {
@@ -141,20 +148,44 @@ table.pageTree tr {
 	margin: 1px;
 
 }
+table.pageTree tr.visible {
+	background-color: rgba(0, 255, 0, 0.2);
+	color: rgba(0, 100, 0, 1);
+}
+
+table.pageTree tr.hidden {
+	background-color: rgba(255, 0, 0, 0.3);
+	color: rgba(139, 0, 0, 1);
+}
+/*table.pageTree tr.visible:hover td {*/
+	/*border-color: rgba(0, 100, 0, 0.4);*/
+/*}*/
+/*table.pageTree tr.hidden:hover td {*/
+	/*border-color: rgba(139, 0, 0, 0.4);*/
+/*}*/
+
 
 table.pageTree td {
-	padding: 4px 0 6px 0;
+	padding: 2px 0 4px 0;
+	border-width: 1px 0;
+	border-style: solid;
+	border-color: transparent;
 }
+/*table.pageTree tr:nth-child(even) td {*/
+	/*background: rgba(255,255,255,0.2);*/
+/*}*/
 
 table.pageTree td:first-child {
 	border-top-left-radius: 15px;
 	border-bottom-left-radius: 15px;
 	padding-left: 5px;
+	border-left-width: 1px;
 }
 
 table.pageTree td:last-child {
 	border-top-right-radius: 15px;
 	border-bottom-right-radius: 15px;
+	border-right-width: 1px;
 
 }
 
@@ -166,13 +197,17 @@ table.pageTree td.page_id {
 	font-family: monospace;
 	font-size: 12px;
 }
-
+table.pageTree td a {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
 table.pageTree td.page_level {
 	font-family: monospace;
 }
 
-table.pageTree .page_level {
-	font-family: monospace;
+table.pageTree span.page_name {
+	/*font-size: 14px;*/
 }
 
 table.pageTree td.page_created {

@@ -26,10 +26,14 @@ class ApplicationExtension extends Nette\DI\CompilerExtension
 		'scanDirs' => array(),
 		'scanComposer' => NULL,
 		'scanFilter' => 'Presenter',
+		'silentLinks' => FALSE,
 	);
 
 	/** @var bool */
 	private $debugMode;
+
+	/** @var int */
+	private $invalidLinkMode;
 
 
 	public function __construct($debugMode = FALSE, array $scanDirs = NULL)
@@ -47,6 +51,10 @@ class ApplicationExtension extends Nette\DI\CompilerExtension
 		$container = $this->getContainerBuilder();
 		$container->addExcludedClasses(array('Nette\Application\UI\Control'));
 
+		$this->invalidLinkMode = $this->debugMode
+			? UI\Presenter::INVALID_LINK_TEXTUAL | ($config['silentLinks'] ? 0 : UI\Presenter::INVALID_LINK_WARNING)
+			: UI\Presenter::INVALID_LINK_WARNING;
+
 		$application = $container->addDefinition($this->prefix('application'))
 			->setClass('Nette\Application\Application')
 			->addSetup('$catchExceptions', array($config['catchExceptions']))
@@ -56,9 +64,12 @@ class ApplicationExtension extends Nette\DI\CompilerExtension
 			$application->addSetup('Nette\Bridges\ApplicationTracy\RoutingPanel::initializePanel');
 		}
 
+		$touch = $this->debugMode && $config['scanDirs'] ? reset($config['scanDirs']) : NULL; // dir added as dependency
 		$presenterFactory = $container->addDefinition($this->prefix('presenterFactory'))
 			->setClass('Nette\Application\IPresenterFactory')
-			->setFactory('Nette\Application\PresenterFactory', array(1 => $this->debugMode));
+			->setFactory('Nette\Application\PresenterFactory', array(new Nette\DI\Statement(
+				'Nette\Bridges\ApplicationDI\PresenterFactoryCallback', array(1 => $this->invalidLinkMode, $touch)
+			)));
 
 		if ($config['mapping']) {
 			$presenterFactory->addSetup('setMapping', array($config['mapping']));
@@ -95,9 +106,7 @@ class ApplicationExtension extends Nette\DI\CompilerExtension
 		foreach ($all as $def) {
 			$def->setInject(TRUE)->setAutowired(FALSE)->addTag('nette.presenter', $def->getClass());
 			if (is_subclass_of($def->getClass(), 'Nette\Application\UI\Presenter')) {
-				$def->addSetup('$invalidLinkMode', array(
-					$this->debugMode ? UI\Presenter::INVALID_LINK_WARNING : UI\Presenter::INVALID_LINK_SILENT
-				));
+				$def->addSetup('$invalidLinkMode', array($this->invalidLinkMode));
 			}
 		}
 	}
@@ -116,6 +125,7 @@ class ApplicationExtension extends Nette\DI\CompilerExtension
 			$robot->acceptFiles = '*' . $config['scanFilter'] . '*.php';
 			$robot->rebuild();
 			$classes = array_keys($robot->getIndexedClasses());
+			$this->getContainerBuilder()->addDependency(reset($config['scanDirs']));
 		}
 
 		if ($config['scanComposer']) {
