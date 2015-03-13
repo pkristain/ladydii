@@ -5,14 +5,17 @@
 # http://nette.org/security-warning
 #
 parameters:
-	database:
-		driver: mysql
-		host: localhost
-		database: ladydii_nette
-		user: root
-		password:
-		prefix:
-		profiler: on
+
+dibi:
+	driver: mysql
+	host: localhost
+	database: ladydii_nette
+	user: root
+	password:
+	prefix:
+
+extensions:
+	dibi: Dibi\Bridges\Nette\DibiExtension22
 
 php:
 	date.timezone: Europe/Prague
@@ -26,15 +29,8 @@ nette:
 		autoStart: true
 		expiration: 14 days
 		name: ladydii
-	debugger:
-		bar:
-			- JanDrabek\MailPanel\MailPanel
-#			- Dibi\Bridges\Tracy\Panel
 
 services:
-	dbSystem:
-		class: DibiConnection(%database%)
 	- RouterFactory
 	router: @\RouterFactory::createRouter
-	nette.mailer: JanDrabek\MailPanel\SessionMailer
 

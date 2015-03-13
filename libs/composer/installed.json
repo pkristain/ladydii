@@ -109,55 +109,6 @@
         ]
     },
     {
-        "name": "jandrabek/nette-mailpanel",
-        "version": "3.2.1",
-        "version_normalized": "3.2.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/repli2dev/nette-mailpanel.git",
-            "reference": "f760a35cad1023db4ed4c9a3fe0cdb5775d29f89"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/repli2dev/nette-mailpanel/zipball/f760a35cad1023db4ed4c9a3fe0cdb5775d29f89",
-            "reference": "f760a35cad1023db4ed4c9a3fe0cdb5775d29f89",
-            "shasum": ""
-        },
-        "require": {
-            "nette/nette": "2.0.* | 2.1.* | 2.2.* | 2.3.*",
-            "php": ">=5.3.1"
-        },
-        "time": "2015-02-02 12:12:35",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "JanDrabek\\MailPanel\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Jan Drábek",
-                "homepage": "http://www.jandrabek.cz"
-            }
-        ],
-        "description": "MailPanel is extension for Nette Framework which captures sent e-mails in development mode and shows them from debugger bar.",
-        "homepage": "http://addons.nette.org/cs/mailpanel",
-        "keywords": [
-            "debugging",
-            "framework",
-            "mail",
-            "mail panel",
-            "mailing",
-            "mailpanel",
-            "sessionmailer"
-        ]
-    },
-    {
         "name": "nette/safe-stream",
         "version": "v2.3.0",
         "version_normalized": "2.3.0.0",
@@ -1501,6 +1452,64 @@
             "pdo",
             "postgresql",
             "sqlite"
+        ]
+    },
+    {
+        "name": "nextras/tracy-query-panel",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nextras/tracy-query-panel.git",
+            "reference": "a7137ec93bd800410cf318fb33d0dca4bd715c6e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nextras/tracy-query-panel/zipball/a7137ec93bd800410cf318fb33d0dca4bd715c6e",
+            "reference": "a7137ec93bd800410cf318fb33d0dca4bd715c6e",
+            "shasum": ""
+        },
+        "require": {
+            "latte/latte": "~2.2.0 || ~2.3.0-beta",
+            "nette/di": "~2.3.0-beta",
+            "php": ">=5.4",
+            "tracy/tracy": "~2.3.0-RC"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9",
+            "nette/nette": "~2.3.0-beta",
+            "nette/tester": "~1.3",
+            "petrp/access": "~0.2.2"
+        },
+        "time": "2015-02-23 14:15:25",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Nextras\\TracyQueryPanel\\": "src/TracyQueryPanel",
+                "Nextras\\TracyQueryPanel\\Handlers\\": "src/handlers"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nextras Project",
+                "homepage": "https://github.com/nextras/tracy-query-panel/graphs/contributors"
+            }
+        ],
+        "description": "Query panel for Tracy php debugger",
+        "homepage": "https://github.com/nextras/tracy-query-panel",
+        "keywords": [
+            "nextras",
+            "tracy"
         ]
     }
 ]

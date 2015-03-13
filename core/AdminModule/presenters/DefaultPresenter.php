@@ -23,8 +23,8 @@ class DefaultPresenter extends BasePresenter
 		$result = $this->getHttpRequest()->isSecured();
 		$this->addInfoVar('Secured connection',($result? 'true': 'false'), $result);
 
-		$parameters = $this->context->getParameters();
-		$result = $parameters['database']['prefix'];
+
+		$result = $this->getConnection()->config['prefix'];
 		$this->addInfoVar('Tables prefix',($result == null ? 'null' : $result), ($result != null));
 
 		$totalPages = $this->model->page->findAll()->count();

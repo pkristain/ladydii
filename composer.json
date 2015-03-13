@@ -1,7 +1,7 @@
 {
 	"name": "pkristian/ladydii",
 	"description": "LadyDii CMS",
-	"minimum-stability": "beta",
+	"minimum-stability": "stable",
 	"prefer-stable": true,
 	"license": "proprietary",
 	"authors": [
@@ -18,6 +18,6 @@
 		"nette/nette": "~2.3.0",
 		"nette/tester": "~1.3.0",
 		"dibi/dibi": "~2.2",
-		"jandrabek/nette-mailpanel": "~3.2"
+		"nextras/tracy-query-panel": "~1.0@dev"
 	}
 }

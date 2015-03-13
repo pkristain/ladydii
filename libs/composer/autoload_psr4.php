@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'JanDrabek\\MailPanel\\' => array($vendorDir . '/jandrabek/nette-mailpanel/src'),
+    'Nextras\\TracyQueryPanel\\Handlers\\' => array($vendorDir . '/nextras/tracy-query-panel/src/handlers'),
+    'Nextras\\TracyQueryPanel\\' => array($vendorDir . '/nextras/tracy-query-panel/src/TracyQueryPanel'),
 );
