@@ -19,6 +19,12 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	 */
 	public $model;
 
+	/**
+	 * @var \WebLoader\Nette\LoaderFactory
+	 * @inject
+	 */
+	public $webLoader;
+
 
 	/**
 	 * @return \DibiConnection
@@ -56,5 +62,17 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 		$this->model->initSessionModels($this->session);
 	}
 
+	/** @return CssLoader */
+	protected function createComponentCss()
+	{
+		return $this->webLoader->createCssLoader('admin');
+	}
+
+
+	/** @return JavaScriptLoader */
+	protected function createComponentJs()
+	{
+		return $this->webLoader->createJavaScriptLoader('admin');
+	}
 
 }

@@ -413,4 +413,9 @@ return array(
     'Tracy\\Logger' => $vendorDir . '/tracy/tracy/src/Tracy/Logger.php',
     'Tracy\\OutputDebugger' => $vendorDir . '/tracy/tracy/src/Tracy/OutputDebugger.php',
     'dibi' => $vendorDir . '/dibi/dibi/dibi/libs/Dibi.php',
+    'lessc' => $vendorDir . '/leafo/lessphp/lessc.inc.php',
+    'lessc_formatter_classic' => $vendorDir . '/leafo/lessphp/lessc.inc.php',
+    'lessc_formatter_compressed' => $vendorDir . '/leafo/lessphp/lessc.inc.php',
+    'lessc_formatter_lessjs' => $vendorDir . '/leafo/lessphp/lessc.inc.php',
+    'lessc_parser' => $vendorDir . '/leafo/lessphp/lessc.inc.php',
 );

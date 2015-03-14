@@ -14,20 +14,19 @@
 
 	<title>LadyDii Admin</title>
 
-	<link rel="stylesheet" href="{$adminData}/reset.css">
-	<link rel="stylesheet" href="{$adminData}/css.css">
+    {control css}
+    {control js}
 	<link rel="shortcut icon" href="{$adminData}/favicon.ico">
 
 	{block head}{/block}
 </head>
 
-<body id="body">
-	<div class='outerWrapper'>
-		<div class='innerWrapper'>
-			<div id="header">
-				{include 'header.latte'}
-			</div>
-		</div>
+<body>
+
+	<div id="header">
+		{include 'header.latte'}
+	</div>
+
 	</div>
 	<div class='outerWrapper'>
 		<div class='innerWrapper'>

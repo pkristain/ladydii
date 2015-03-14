@@ -1,10 +1,14 @@
 {block content}
 
-<div class="infoVars">
+<table class="infoVars">
 	{foreach $infoVars as $var}
-		<div class="{$var['type']}">
-			<div>{$var['label']}</div>
-			<div>{$var['value']}</div>
-		</div>
+		{first 2}<tr>{/first}
+		<td>
+			<div class="{$var['type']}">
+				<span>{$var['label']}</span>
+				<span>{$var['value']}</span>
+			</div>
+		</td>
+		{last 2}</tr>{/last}
 	{/foreach}
-</div>
+</table>

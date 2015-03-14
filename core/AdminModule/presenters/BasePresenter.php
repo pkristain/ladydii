@@ -5,7 +5,10 @@ namespace AdminModule\Presenters;
 
 class BasePresenter extends \Presenters\BasePresenter
 {
-	public $primaryMenu = ['Default:default','Page:default'];
+	public $primaryMenu = [
+		'Default:default',
+		'Page:default',
+	];
 
 
 	public function startup()

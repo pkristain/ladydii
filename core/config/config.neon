@@ -16,6 +16,7 @@ dibi:
 
 extensions:
 	dibi: Dibi\Bridges\Nette\DibiExtension22
+	webloader: WebLoader\Nette\Extension
 
 php:
 	date.timezone: Europe/Prague
@@ -30,7 +31,21 @@ nette:
 		expiration: 14 days
 		name: ladydii
 
+webloader:
+	css:
+		admin:
+			files:
+				- {files: ["reset.css","*.less"], from: %wwwDir%/admin_data}
+			fileFilters:
+				- @lessFilter
+				- @wlCssFilter
+	js:
+		admin:
+			files:
+				- {files: ["*.js"], from: %appDir%/AdminModule}
 services:
 	- RouterFactory
 	router: @\RouterFactory::createRouter
+	wlCssFilter: WebLoader\Filter\CssUrlsFilter(%wwwDir%)
+	lessFilter: WebLoader\Filter\LessFilter
 

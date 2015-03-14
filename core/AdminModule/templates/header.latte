@@ -3,8 +3,8 @@
 		 {foreach $primaryMenu as $key => $value}
 		<td>
 			<a n:href="{$value}"
-			class="{ifCurrent $value}ok{else}info{/ifCurrent}"
-			>{$value}</a>
+			class="{ifCurrent $value}active{/ifCurrent}"
+			><span>{$value}</span></a>
 			</td>
 		{/foreach}
 	</tr>
@@ -15,8 +15,8 @@
 		 {foreach $secondaryMenu as $key => $value}
 		<td>
 			<a n:href="{$value}"
-			class="{ifCurrent $value}ok{else}info{/ifCurrent}"
-			>{$value}</a>
+			class="{ifCurrent $value}active{/ifCurrent}"
+			><span>{$value}</span></a>
 			</td>
 		{/foreach}
 	</tr>
