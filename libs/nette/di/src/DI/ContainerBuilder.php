@@ -79,6 +79,14 @@ class ContainerBuilder extends Nette\Object
 	{
 		$name = isset($this->aliases[$name]) ? $this->aliases[$name] : $name;
 		unset($this->definitions[$name]);
+
+		if ($this->classes) {
+			foreach ($this->classes as & $tmp) {
+				foreach ($tmp as & $names) {
+					$names = array_values(array_diff($names, array($name)));
+				}
+			}
+		}
 	}
 
 
@@ -120,8 +128,8 @@ class ContainerBuilder extends Nette\Object
 
 
 	/**
-	 * @param string
-	 * @param string
+	 * @param  string
+	 * @param  string
 	 */
 	public function addAlias($alias, $service)
 	{
@@ -206,7 +214,7 @@ class ContainerBuilder extends Nette\Object
 
 	/**
 	 * Gets the service names and definitions of the specified type.
-	 * @param string
+	 * @param  string
 	 * @return ServiceDefinition[]
 	 */
 	public function findByType($class)
@@ -489,7 +497,7 @@ class ContainerBuilder extends Nette\Object
 
 
 	/**
-	 * @param string[]
+	 * @param  string[]
 	 * @return self
 	 */
 	public function addExcludedClasses(array $classes)
@@ -617,6 +625,7 @@ class ContainerBuilder extends Nette\Object
 			}
 			$code .= $this->formatStatement($setup) . ";\n";
 		}
+		$this->currentService = NULL;
 
 		$code .= 'return $service;';
 
@@ -635,7 +644,7 @@ class ContainerBuilder extends Nette\Object
 		$factoryClass->addMethod('__construct')
 			->addBody('$this->container = $container;')
 			->addParameter('container')
-				->setTypeHint('Nette\DI\Container');
+				->setTypeHint($this->className);
 
 		$factoryClass->addMethod($def->getImplementType())
 			->setParameters($this->convertParameters($def->parameters))

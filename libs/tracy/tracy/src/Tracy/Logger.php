@@ -23,6 +23,9 @@ class Logger implements ILogger
 	/** @var string|array email or emails to which send error notifications */
 	public $email;
 
+	/** @var string sender of email notifications */
+	public $fromEmail;
+
 	/** @var mixed interval for sending email is 2 days */
 	public $emailSnooze = '2 days';
 
@@ -56,12 +59,16 @@ class Logger implements ILogger
 			throw new \RuntimeException("Directory '$this->directory' is not found or is not directory.");
 		}
 
-		$exceptionFile = $message instanceof \Exception ? $this->logException($message) : NULL;
+		$exceptionFile = $message instanceof \Exception ? $this->getExceptionFile($message) : NULL;
 		$line = $this->formatLogLine($message, $exceptionFile);
 		$file = $this->directory . '/' . strtolower($priority ?: self::INFO) . '.log';
 
 		if (!@file_put_contents($file, $line . PHP_EOL, FILE_APPEND | LOCK_EX)) {
 			throw new \RuntimeException("Unable to write to log file '$file'. Is directory writable?");
+		}
+
+		if ($message instanceof \Exception) {
+			$this->logException($message, $exceptionFile);
 		}
 
 		if (in_array($priority, array(self::ERROR, self::EXCEPTION, self::CRITICAL), TRUE)) {
@@ -110,9 +117,9 @@ class Logger implements ILogger
 
 
 	/**
-	 * @return string logged error filename
+	 * @return string
 	 */
-	protected function logException(\Exception $exception)
+	protected function getExceptionFile(\Exception $exception)
 	{
 		$dir = strtr($this->directory . '/', '\\/', DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR);
 		$hash = md5(preg_replace('~(Resource id #)\d+~', '$1', $exception));
@@ -121,9 +128,18 @@ class Logger implements ILogger
 				return $dir . $file;
 			}
 		}
+		return $dir . 'exception-' . @date('Y-m-d-H-i-s') . "-$hash.html";
+	}
 
-		$file = $dir . 'exception-' . @date('Y-m-d-H-i-s') . "-$hash.html";
-		if ($handle = @fopen($file, 'w')) {
+
+	/**
+	 * Logs exception to the file if file doesn't exist.
+	 * @return string logged error filename
+	 */
+	protected function logException(\Exception $exception, $file = NULL)
+	{
+		$file = $file ?: $this->getExceptionFile($exception);
+		if ($handle = @fopen($file, 'x')) {
 			ob_start(); // double buffer prevents sending HTTP headers in some PHP
 			ob_start(function($buffer) use ($handle) { fwrite($handle, $buffer); }, 4096);
 			$bs = $this->blueScreen ?: new BlueScreen;
@@ -132,7 +148,6 @@ class Logger implements ILogger
 			ob_end_clean();
 			fclose($handle);
 		}
-
 		return $file;
 	}
 
@@ -145,7 +160,7 @@ class Logger implements ILogger
 	{
 		$snooze = is_numeric($this->emailSnooze)
 			? $this->emailSnooze
-			: strtotime($this->emailSnooze) - time();
+			: @strtotime($this->emailSnooze) - time(); // @ - timezone may not be set
 
 		if ($this->email && $this->mailer
 			&& @filemtime($this->directory . '/email-sent') + $snooze < time() // @ - file may not exist
@@ -171,7 +186,7 @@ class Logger implements ILogger
 			array("\n", PHP_EOL),
 			array(
 				'headers' => implode("\n", array(
-					"From: noreply@$host",
+					"From: " . ($this->fromEmail ?: "noreply@$host"),
 					'X-Mailer: Tracy',
 					'Content-Type: text/plain; charset=UTF-8',
 					'Content-Transfer-Encoding: 8bit',

@@ -35,8 +35,8 @@ class Configurator extends Object
 		'php' => 'Nette\DI\Extensions\PhpExtension',
 		'constants' => 'Nette\DI\Extensions\ConstantsExtension',
 		'extensions' => 'Nette\DI\Extensions\ExtensionsExtension',
+		'application' => array('Nette\Bridges\ApplicationDI\ApplicationExtension', array('%debugMode%', array('%appDir%'), '%tempDir%/cache')),
 		'decorator' => 'Nette\DI\Extensions\DecoratorExtension',
-		'application' => array('Nette\Bridges\ApplicationDI\ApplicationExtension', array('%debugMode%', array('%appDir%'))),
 		'cache' => array('Nette\Bridges\CacheDI\CacheExtension', array('%tempDir%')),
 		'database' => array('Nette\Bridges\DatabaseDI\DatabaseExtension', array('%debugMode%')),
 		'di' => array('Nette\DI\Extensions\DIExtension', array('%debugMode%')),
@@ -299,7 +299,7 @@ class Configurator extends Object
 
 
 	/**
-	 * Back compatiblity with < v2.3
+	 * Back compatibility with < v2.3
 	 * @return array
 	 */
 	protected function fixCompatibility($config)

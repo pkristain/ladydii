@@ -19,6 +19,8 @@ class TracyExtension extends Nette\DI\CompilerExtension
 {
 	public $defaults = array(
 		'email' => NULL,
+		'fromEmail' => NULL,
+		'logSeverity' => NULL,
 		'editor' => NULL,
 		'browser' => NULL,
 		'errorTemplate' => NULL,
@@ -67,9 +69,10 @@ class TracyExtension extends Nette\DI\CompilerExtension
 		unset($options['bar'], $options['blueScreen']);
 		foreach ($options as $key => $value) {
 			if ($value !== NULL) {
+				$key = ($key === 'fromEmail' ? 'getLogger()->' : '$') . $key;
 				$initialize->addBody($container->formatPhp(
-					'Tracy\Debugger::$? = ?;',
-					Nette\DI\Compiler::filterArguments(array($key, $value))
+					'Tracy\Debugger::' . $key . ' = ?;',
+					Nette\DI\Compiler::filterArguments(array($value))
 				));
 			}
 		}

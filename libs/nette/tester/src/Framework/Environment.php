@@ -65,8 +65,9 @@ class Environment
 			: (PHP_SAPI === 'cli' && ((function_exists('posix_isatty') && posix_isatty(STDOUT))
 				|| getenv('ConEmuANSI') === 'ON' || getenv('ANSICON') !== FALSE));
 
-		ob_start(function($s) {
-			return Environment::$useColors ? $s : Dumper::removeColors($s);
+		$colors = & self::$useColors;
+		ob_start(function($s) use (& $colors) {
+			return $colors ? $s : Dumper::removeColors($s);
 		}, PHP_VERSION_ID < 50400 ? 2 : 1);
 	}
 
@@ -131,13 +132,18 @@ class Environment
 
 
 	/**
-	 * locks the parallel tests.
+	 * Locks the parallel tests.
+	 * @param  string
+	 * @param  string  lock store directory
 	 * @return void
 	 */
 	public static function lock($name = '', $path = '')
 	{
 		static $locks;
-		flock($locks[] = fopen($path . '/lock-' . md5($name), 'w'), LOCK_EX);
+		$file = "$path/lock-" . md5($name);
+		if (!isset($locks[$file])) {
+			flock($locks[$file] = fopen($file, 'w'), LOCK_EX);
+		}
 	}
 
 

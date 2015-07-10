@@ -46,8 +46,8 @@ class Compiler extends Nette\Object
 	 */
 	public function addExtension($name, CompilerExtension $extension)
 	{
-		if (isset(self::$reserved[$name])) {
-			throw new Nette\InvalidArgumentException("Name '$name' is reserved.");
+		if (isset($this->extensions[$name]) || isset(self::$reserved[$name])) {
+			throw new Nette\InvalidArgumentException("Name '$name' is already used or reserved.");
 		}
 		$this->extensions[$name] = $extension->setCompiler($this, $name);
 		return $this;
@@ -173,7 +173,7 @@ class Compiler extends Nette\Object
 			if (isset($this->config[$name]['services'])) {
 				trigger_error("Support for inner section 'services' inside extension was removed (used in '$name').", E_USER_DEPRECATED);
 			}
-			$extension->setConfig($this->config[$name]);
+			$extension->setConfig($this->config[$name] ?: array());
 		}
 
 		foreach ($extensions as $extension) {
@@ -250,8 +250,8 @@ class Compiler extends Nette\Object
 
 		foreach ($services as $origName => $def) {
 			if ((string) (int) $origName === (string) $origName) {
-				$name = (count($builder->getDefinitions()) + 1)
-					. preg_replace('#\W+#', '_', $def instanceof Statement ? '.' . $def->getEntity() : (is_scalar($def) ? ".$def" : ''));
+				$postfix = $def instanceof Statement && is_string($def->getEntity()) ? '.' . $def->getEntity() : (is_scalar($def) ? ".$def" : '');
+				$name = (count($builder->getDefinitions()) + 1) . preg_replace('#\W+#', '_', $postfix);
 			} else {
 				$name = ($namespace ? $namespace . '.' : '') . strtr($origName, '\\', '_');
 			}

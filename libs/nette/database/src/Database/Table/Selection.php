@@ -23,7 +23,7 @@ use Nette,
  */
 class Selection extends Nette\Object implements \Iterator, IRowContainer, \ArrayAccess, \Countable
 {
-	/** @var Nette\Database\Context */
+	/** @var Context */
 	protected $context;
 
 	/** @var IConventions */
@@ -265,7 +265,8 @@ class Selection extends Nette\Object implements \Iterator, IRowContainer, \Array
 	 */
 	public function fetchAssoc($path)
 	{
-		return Nette\Utils\Arrays::associate($this->fetchAll(), $path);
+		$rows = array_map('iterator_to_array', $this->fetchAll());
+		return Nette\Utils\Arrays::associate($rows, $path);
 	}
 
 
@@ -840,13 +841,16 @@ class Selection extends Nette\Object implements \Iterator, IRowContainer, \Array
 			}
 			list($table, $column) = $belongsTo;
 		}
+		if (!$row->accessColumn($column)) {
+			return FALSE;
+		}
 
 		$checkPrimaryKey = $row[$column];
 
 		$referenced = & $this->refCache['referenced'][$this->getSpecificCacheKey()]["$table.$column"];
 		$selection = & $referenced['selection'];
 		$cacheKeys = & $referenced['cacheKeys'];
-		if ($selection === NULL || !isset($cacheKeys[$checkPrimaryKey])) {
+		if ($selection === NULL || ($checkPrimaryKey !== NULL && !isset($cacheKeys[$checkPrimaryKey]))) {
 			$this->execute();
 			$cacheKeys = array();
 			foreach ($this->rows as $row) {
@@ -889,7 +893,7 @@ class Selection extends Nette\Object implements \Iterator, IRowContainer, \Array
 			list($table, $column) = $hasMany;
 		}
 
-		$prototype = & $this->refCache['referencingPrototype']["$table.$column"];
+		$prototype = & $this->refCache['referencingPrototype'][$this->getSpecificCacheKey()]["$table.$column"];
 		if (!$prototype) {
 			$prototype = $this->createGroupedSelectionInstance($table, $column);
 			$prototype->where("$table.$column", array_keys((array) $this->rows));

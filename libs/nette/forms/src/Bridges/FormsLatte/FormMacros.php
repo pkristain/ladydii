@@ -144,7 +144,7 @@ class FormMacros extends MacroSet
 
 
 	/**
-	 * <form n:name>, <input n:name>, <select n:name>, <textarea n:name> and <label n:name>
+	 * <form n:name>, <input n:name>, <select n:name>, <textarea n:name>, <label n:name> and <button n:name>
 	 */
 	public function macroNameAttr(MacroNode $node, PhpWriter $writer)
 	{
@@ -154,7 +154,7 @@ class FormMacros extends MacroSet
 		}
 		$name = array_shift($words);
 		$tagName = strtolower($node->htmlNode->name);
-		$node->isEmpty = !in_array($tagName, array('form', 'select', 'textarea'), TRUE);
+		$node->isEmpty = $tagName === 'input';
 
 		if ($tagName === 'form') {
 			return $writer->write(
@@ -193,8 +193,17 @@ class FormMacros extends MacroSet
 	public function macroNameEnd(MacroNode $node, PhpWriter $writer)
 	{
 		preg_match('#^(.*? n:\w+>)(.*)(<[^?].*)\z#s', $node->content, $parts);
-		if (strtolower($node->htmlNode->name) === 'form') {
+		$tagName = strtolower($node->htmlNode->name);
+		if ($tagName === 'form') {
 			$node->content = $parts[1] . $parts[2] . '<?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form, FALSE) ?>' . $parts[3];
+		} elseif ($tagName === 'label') {
+			if ($node->htmlNode->isEmpty) {
+				$node->content = $parts[1] . "<?php echo \$_input->{method_exists(\$_input, 'getLabelPart')?'getLabelPart':'getLabel'}()->getHtml() ?>" . $parts[3];
+			}
+		} elseif ($tagName === 'button') {
+			if ($node->htmlNode->isEmpty) {
+				$node->content = $parts[1] . '<?php echo htmlspecialchars($_input->caption) ?>' . $parts[3];
+			}
 		} else { // select, textarea
 			$node->content = $parts[1] . '<?php echo $_input->getControl()->getHtml() ?>' . $parts[3];
 		}
