@@ -1,11 +1,13 @@
 @fontSize: 16px;
 
+@colorTransparent: rgba(0, 0, 0, 0);
 
-@colorTransparent: rgba(0,0,0,0);
-
-@colorBaseHue : 190; //0-360
-@colorBaseSaturation: 20; // 0-100%
-@colorBaseBrighness: 50; // 0-100%
+@colorBaseHue : 190;
+//0-360
+@colorBaseSaturation: 20;
+// 0-100%
+@colorBaseBrighness: 50;
+// 0-100%
 
 @colorBase: hsl(@colorBaseHue, @colorBaseSaturation,@colorBaseBrighness);
 
@@ -16,16 +18,33 @@
 
 @pageWidth: 900px;
 
+
+.circle(@size) {
+	height: @size;
+	width: @size;
+	border-radius: @size;
+}
+
 html {
 	color: @colorTextDark;
 	background-color: lighten(@colorBase, 45);
 	height: 100%;
 	overflow-y: scroll;
 }
+
 body {
 	font-family: Helvetica, sans-serif;
 	font-size: @fontSize;
+	color: @colorTextDark;
 	height: 100%;
+
+	a {
+		color: @colorTextDark;
+		&:hover {
+			color: @colorTextDarker;
+			text-decoration: none;
+		}
+	}
 
 }
 
@@ -33,7 +52,7 @@ body {
 	background-color: @colorBase;
 	color: @colorTextLight;
 
-	table{
+	table {
 		max-width: @pageWidth;
 		margin: auto;
 
@@ -50,16 +69,19 @@ body {
 					border-bottom: 1px solid @colorTransparent;
 				}
 				& {
-					border-color: lighten(@colorBase, 10);
-				}
-				&:hover, &.active {
-					border-color: lighten(@colorBase, 17);
-					color: @colorTextLighter;
+					border-color: lighten(@colorBase, 5);
 				}
 				span {
 					display: block;
 					padding: 5px 10px;
-					border-color: darken(@colorBase, 10);
+					border-color: darken(@colorBase, 5);
+				}
+				&:hover, &.active {
+					border-color: lighten(@colorBase, 20);
+					color: @colorTextLighter;
+					span {
+						border-color: darken(@colorBase, 20);
+					}
 				}
 			}
 		}
@@ -86,7 +108,6 @@ body {
 	margin: 20px auto;
 }
 
-
 table.infoVars {
 	width: 100%;
 	td {
@@ -106,3 +127,48 @@ table.infoVars {
 	}
 }
 
+table.pageTree {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0 1px;
+	tr {
+		height: 22px;
+		td {
+			vertical-align: middle;
+			background-color: lighten(@colorBase, 42);
+
+			&.pageName {
+				.pageLevel {
+//					float: left;
+					display: inline-block;
+					background-color: @colorBase;
+
+					.circle(12px);
+
+					&:not(:last-of-type) {
+						margin-right: 3px;
+					}
+				}
+				a {
+					min-width: 30px;
+					margin-left: 5px;
+					text-decoration: none;
+				}
+			}
+			&.pageCreated {
+				width: 130px;
+				text-align: center;
+				font-size: @fontSize - 4;
+			}
+		}
+
+	}
+}
+
+#footer {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	padding: 3px;
+	font-size: @fontSize - 4;
+}
